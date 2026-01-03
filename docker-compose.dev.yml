@@ -1,9 +1,12 @@
+name: launchdarkly-full-stack-example
+
 services:
   server:
     build:
       context: .
       dockerfile: Dockerfile.server
-    container_name: launchdarkly-server-dev
+    image: launchdarkly-full-stack-example-server:latest
+    container_name: launchdarkly-full-stack-example-server-dev
     ports:
       - "5000:5000"
     environment:
@@ -33,7 +36,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
-    container_name: launchdarkly-client-dev
+    image: launchdarkly-full-stack-example-client:latest
+    container_name: launchdarkly-full-stack-example-client-dev
     ports:
       - "5173:5173"
     environment:
