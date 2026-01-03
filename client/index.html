@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="LaunchDarkly React Demo App"
+    />
+    <!-- Content Security Policy for LaunchDarkly Observability Plugin -->
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://pub.observability.app.launchdarkly.com https://otel.observability.app.launchdarkly.com https://clientsdk.launchdarkly.com https://app.launchdarkly.com https://events.launchdarkly.com https://stream.launchdarkly.com https://clientstream.launchdarkly.com https://pub.ld.highlight.io https://pub.highlight.io wss://pub.observability.app.launchdarkly.com; worker-src 'self' blob:; img-src 'self' data: blob:; font-src 'self';"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>LaunchDarkly React Demo</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/index.jsx"></script>
+  </body>
+</html>

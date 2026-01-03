@@ -1,0 +1,61 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: launchdarkly-server-dev
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - LD_SDK_KEY=${LD_SDK_KEY}
+      - SERVICE_VERSION=${SERVICE_VERSION:-v1.0.0-dev}
+      - NODE_ENV=development
+      - LAUNCHDARKLY_OTEL_NODE_ENABLE_FILESYSTEM_INSTRUMENTATION=${LAUNCHDARKLY_OTEL_NODE_ENABLE_FILESYSTEM_INSTRUMENTATION:-true}
+      - LAUNCHDARKLY_OTEL_NODE_ENABLE_OUTGOING_HTTP_INSTRUMENTATION=${LAUNCHDARKLY_OTEL_NODE_ENABLE_OUTGOING_HTTP_INSTRUMENTATION:-true}
+    env_file:
+      - .env
+    volumes:
+      - ./server:/app/server
+      - ./package.json:/app/package.json
+    command: npm run start
+    restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: launchdarkly-client-dev
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_LD_CLIENTSIDE_ID=${VITE_LD_CLIENTSIDE_ID}
+      - NODE_ENV=development
+    env_file:
+      - ./client/.env
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server
+    restart: unless-stopped
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  app-network:
+    driver: bridge
