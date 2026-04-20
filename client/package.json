@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@launchdarkly/observability": "^0.4.9",
-    "@launchdarkly/session-replay": "^0.4.9",
+    "@launchdarkly/observability": "^1.1.2",
+    "@launchdarkly/session-replay": "^1.1.2",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "launchdarkly-react-client-sdk": "3.9.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router": "^6.21.1",
-    "react-router-dom": "^6.21.1"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router": "^7.14.1",
+    "react-router-dom": "^7.14.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.1.2",
-    "vite": "^7.3.0"
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.9"
   },
   "engines": {
     "node": ">=24.0.0",

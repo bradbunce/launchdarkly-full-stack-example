@@ -143,43 +143,18 @@ function App({ flags, ldClient }) {
               return;
             }
             
-            const sdkDetails = {
-              isRunningOnHighlight: LDRecord._sdk?.isRunningOnHighlight,
-              organizationID: LDRecord._sdk?.organizationID,
-              projectID: LDRecord._sdk?.projectID,
-              sessionSecureID: LDRecord._sdk?.sessionSecureID,
-              backendUrl: LDRecord._sdk?.backendUrl,
-              hasGraphqlSDK: !!LDRecord._sdk?.graphqlSDK,
-              sdkKeys: Object.keys(LDRecord._sdk || {})
-            };
-            console.log('🔍 LDRecord._sdk details:', sdkDetails);
-            
-            // Critical check: If not running on Highlight, sessions won't be uploaded
-            if (!LDRecord._sdk?.isRunningOnHighlight) {
-              console.error('❌ CRITICAL: isRunningOnHighlight is FALSE - sessions will NOT be uploaded!');
-              console.error('   This means the SessionReplay plugin is not connected to a backend.');
-              console.error('   Possible causes:');
-              console.error('   1. Session Replay not enabled in LaunchDarkly account');
-              console.error('   2. Project key mismatch');
-              console.error('   3. Missing backend configuration');
-            }
-            
             // Start recording
-            const startPromise = LDRecord.start({
-              forceNew: true, // Start a new recording session
-              silent: false   // Show console messages
+            await LDRecord.start({
+              forceNew: true,
+              silent: false
             });
-            
-            console.log('🔍 Start promise:', startPromise);
-            await startPromise;
             
             setSessionReplayStarted(true);
             
-            // Check recording state
+            // Check recording state after start completes
             const currentState = LDRecord.getRecordingState();
             setRecordingState(currentState);
             console.log('✅ Session replay started:', currentState);
-            console.log('🔍 After start - isRunningOnHighlight:', LDRecord._sdk?.isRunningOnHighlight);
           
           // Add session properties for this demo session
           LDRecord.addSessionProperties({
