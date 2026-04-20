@@ -73,7 +73,7 @@
     "start": "node server/index.js"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=24.0.0",
     "npm": ">=10.0.0"
   },
   "keywords": ["launchdarkly", "feature-flags", "observability", "session-replay", "react", "nodejs", "demo"],
